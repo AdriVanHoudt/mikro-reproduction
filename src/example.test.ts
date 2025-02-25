@@ -1,51 +1,79 @@
-import { Entity, MikroORM, PrimaryKey, Property } from '@mikro-orm/sqlite';
+import {  Collection, Entity, ManyToOne, MikroORM, OneToMany, PrimaryKey, PrimaryKeyProp, Property, Unique, type Ref } from '@mikro-orm/sqlite';
+import { v4 } from 'uuid';
 
-@Entity()
-class User {
+@Entity({ tableName: "organization" })
+class OrganizationMikroModel  {
+ @PrimaryKey({ columnType: "uuid" })
+  id!: string;
 
-  @PrimaryKey()
-  id!: number;
-
-  @Property()
-  name: string;
-
-  @Property({ unique: true })
-  email: string;
-
-  constructor(name: string, email: string) {
-    this.name = name;
-    this.email = email;
-  }
-
+  @Unique({ name: "organization_name_unique" })
+  @Property({ columnType: "text", length: 255 })
+  name!: string;
 }
 
-let orm: MikroORM;
+@Entity({ tableName: "task_assignee" })
+export class TaskAssigneeMikroModel {
+  [PrimaryKeyProp]?: ["task", "organization"];
 
-beforeAll(async () => {
-  orm = await MikroORM.init({
-    dbName: ':memory:',
-    entities: [User],
-    debug: ['query', 'query-params'],
-    allowGlobalContext: true, // only for testing
-  });
-  await orm.schema.refreshDatabase();
-});
+  @ManyToOne({
+    entity: () => TaskMikroModel,
+    ref: true,
+    deleteRule: "cascade",
+    joinColumns: ["task_id", "organization_id"],
+    primary: true,
+  })
+  task!: Ref<TaskMikroModel>;
 
-afterAll(async () => {
-  await orm.close(true);
-});
+  @ManyToOne({ entity: () => OrganizationMikroModel, ref: true, primary: true })
+  organization!: Ref<OrganizationMikroModel>;
+}
+
+@Entity({ tableName: "task" })
+export class TaskMikroModel {
+  [PrimaryKeyProp]?: ["id", "organization"];
+
+  @PrimaryKey({ type: "uuid" })
+  id!: string;
+
+  @ManyToOne({ entity: () => OrganizationMikroModel, ref: true, primary: true })
+  organization!: Ref<OrganizationMikroModel>;
+
+@OneToMany({ entity: () => TaskAssigneeMikroModel, mappedBy: "task", orphanRemoval: true })
+  internalTaskTeam = new Collection<TaskAssigneeMikroModel>(this);
+}
+
 
 test('basic CRUD example', async () => {
-  orm.em.create(User, { name: 'Foo', email: 'foo' });
+
+  const orm = await MikroORM.init({
+    dbName: ':memory:',
+    entities: [OrganizationMikroModel, TaskAssigneeMikroModel, TaskMikroModel],
+    debug: true,
+    allowGlobalContext: true, // only for testing
+    persistOnCreate: true,
+    loadStrategy: "select-in",
+
+    discovery: {
+      checkDuplicateTableNames: false,
+    },
+  });
+
+  await orm.schema.refreshDatabase();
+
+  const organization = orm.em.create(OrganizationMikroModel, { id: v4(), name: "test" });
+  const task = orm.em.create(TaskMikroModel, {
+    id: v4(),
+    organization: organization.id,
+    internalTaskTeam: []
+  })
+  orm.em.create(TaskAssigneeMikroModel, {
+    task: [task.id, organization.id],
+    organization: organization.id,
+  })
   await orm.em.flush();
   orm.em.clear();
 
-  const user = await orm.em.findOneOrFail(User, { email: 'foo' });
-  expect(user.name).toBe('Foo');
-  user.name = 'Bar';
-  orm.em.remove(user);
-  await orm.em.flush();
+  await orm.em.find(TaskMikroModel, {}, { populate: ["internalTaskTeam"] })
 
-  const count = await orm.em.count(User, { email: 'foo' });
-  expect(count).toBe(0);
+  await orm.close()
 });

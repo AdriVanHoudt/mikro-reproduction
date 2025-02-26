@@ -9,11 +9,14 @@ importers:
   .:
     dependencies:
       '@mikro-orm/core':
-        specifier: next
-        version: 6.4.5-dev.0
+        specifier: 6.4.8-dev.3
+        version: 6.4.8-dev.3
+      '@mikro-orm/knex':
+        specifier: 6.4.8-dev.3
+        version: 6.4.8-dev.3(@mikro-orm/core@6.4.8-dev.3)(sqlite3@5.1.7)
       '@mikro-orm/sqlite':
-        specifier: next
-        version: 6.4.5-dev.0(@mikro-orm/core@6.4.5-dev.0)
+        specifier: 6.4.8-dev.3
+        version: 6.4.8-dev.3(@mikro-orm/core@6.4.8-dev.3)
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -296,15 +299,15 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@mikro-orm/core@6.4.5-dev.0':
-    resolution: {integrity: sha512-9ZIZsq1uH4wPOkqZkW2ESG18t5iV2NbakeayIlsdz7o4Y7d7hABYPRjGgRNHmy9UfFnHCtUD2Inq3smBiVaXRQ==}
+  '@mikro-orm/core@6.4.8-dev.3':
+    resolution: {integrity: sha512-zjINTr6fLSVF6uHLPxPhWlwEUusRcpo8Dazct2b8QALz/iuwAFT7yywt6Iy1qJY6EvMOOAphL6j0hAX41/iS2Q==}
     engines: {node: '>= 18.12.0'}
 
-  '@mikro-orm/knex@6.4.5-dev.0':
-    resolution: {integrity: sha512-Zzk97pFbN3XuHCP7QwVI8qxjf0uJQGK0DvAGw/ZDfK+Zvl8fEKqUQyD0dk0w5TztAJD40L66u7+0B3GikaPQGA==}
+  '@mikro-orm/knex@6.4.8-dev.3':
+    resolution: {integrity: sha512-J6hwNZwwxsq1a9cdajvfuCNPgZ26ggPGrMaIRklqup1xBYSaaBl1/facjiAWzwYDZ0fSJZAD3yuy+Dejzha3Mw==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
-      '@mikro-orm/core': 6.4.5-dev.0
+      '@mikro-orm/core': 6.4.8-dev.3
       better-sqlite3: '*'
       libsql: '*'
       mariadb: '*'
@@ -316,11 +319,11 @@ packages:
       mariadb:
         optional: true
 
-  '@mikro-orm/sqlite@6.4.5-dev.0':
-    resolution: {integrity: sha512-nOT1fVkE2kz5/F+/5/gxk1OrB5+Dc2R2Cm210ka1eyOGMma41upsp8y95Mhb4RPWYRu6LcgxIdcsVEFmsInunw==}
+  '@mikro-orm/sqlite@6.4.8-dev.3':
+    resolution: {integrity: sha512-hwPBE/daHUL4r8qX7su6UL656ZlcbWqWpE42t9+GcHfKy5MxWb99aAdzM+V26OyeV+TnFTd2wUETOrH7B4HGqA==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
-      '@mikro-orm/core': 6.4.5-dev.0
+      '@mikro-orm/core': 6.4.8-dev.3
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1206,8 +1209,8 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
-  mikro-orm@6.4.5-dev.0:
-    resolution: {integrity: sha512-A026FxHeDP5NzOJFD0Yvc6lbVQTc1+1G6oYlXWHbG5KNKtQxZ4AQBZXdf0aSqBu2qITb+6snOEe2RTok3jBD9w==}
+  mikro-orm@6.4.8-dev.3:
+    resolution: {integrity: sha512-axa0yPXyS/r99oHxh5d01ZcHzK9ZmBawrKU30N3ISmydYj84BwZ6nvtGH9iA8c4/Gfm6/Vswvpg2OuLad4F+oA==}
     engines: {node: '>= 18.12.0'}
 
   mimic-fn@2.1.0:
@@ -2136,19 +2139,19 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@mikro-orm/core@6.4.5-dev.0':
+  '@mikro-orm/core@6.4.8-dev.3':
     dependencies:
       dataloader: 2.2.3
       dotenv: 16.4.7
       esprima: 4.0.1
       fs-extra: 11.3.0
       globby: 11.1.0
-      mikro-orm: 6.4.5-dev.0
+      mikro-orm: 6.4.8-dev.3
       reflect-metadata: 0.2.2
 
-  '@mikro-orm/knex@6.4.5-dev.0(@mikro-orm/core@6.4.5-dev.0)(sqlite3@5.1.7)':
+  '@mikro-orm/knex@6.4.8-dev.3(@mikro-orm/core@6.4.8-dev.3)(sqlite3@5.1.7)':
     dependencies:
-      '@mikro-orm/core': 6.4.5-dev.0
+      '@mikro-orm/core': 6.4.8-dev.3
       fs-extra: 11.3.0
       knex: 3.1.0(sqlite3@5.1.7)
       sqlstring: 2.3.3
@@ -2161,10 +2164,10 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/sqlite@6.4.5-dev.0(@mikro-orm/core@6.4.5-dev.0)':
+  '@mikro-orm/sqlite@6.4.8-dev.3(@mikro-orm/core@6.4.8-dev.3)':
     dependencies:
-      '@mikro-orm/core': 6.4.5-dev.0
-      '@mikro-orm/knex': 6.4.5-dev.0(@mikro-orm/core@6.4.5-dev.0)(sqlite3@5.1.7)
+      '@mikro-orm/core': 6.4.8-dev.3
+      '@mikro-orm/knex': 6.4.8-dev.3(@mikro-orm/core@6.4.8-dev.3)(sqlite3@5.1.7)
       fs-extra: 11.3.0
       sqlite3: 5.1.7
       sqlstring-sqlite: 0.1.1
@@ -3293,7 +3296,7 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.1
 
-  mikro-orm@6.4.5-dev.0: {}
+  mikro-orm@6.4.8-dev.3: {}
 
   mimic-fn@2.1.0: {}
 
